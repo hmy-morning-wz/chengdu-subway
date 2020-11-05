@@ -1,0 +1,10 @@
+
+<view class="container">
+  <button type="primary" onTap="onScan">
+  扫码
+  </button>
+  <view class="cell" onTap="handleCopy" data-text="{{base64Data}}"><text> {{base64Data}}</text> </view>
+  <view class="cell" onTap="handleCopy" data-text="{{hexData}}" ><text> {{hexData}}</text> </view>
+  <view class="cell" ><text> {{codeType}}</text> </view>
+   <view class="cell" onTap="handleCopy" data-text="{{decodeData}}" ><text> {{decodeData}}</text> </view>
+</view>

@@ -1,0 +1,6 @@
+  <view onTap="onBtnMsgCard" class="msg-card" data-index="{{index}}" data-id="{{id}}">
+  <view class="title">{{title}}          
+  </view>
+  <view class="date">{{time}}          
+  </view>
+</view>

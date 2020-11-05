@@ -1,0 +1,39 @@
+{
+  "current": 6,
+  "modes": [
+    {
+      "page": "pages/card/pages/usage/usage",
+      "title": "usage"
+    },
+    {
+      "page": "pages/card/pages/launch/launch",
+      "pageQuery": "r=/pages/card/pages/main/main",
+      "title": "mark"
+    },
+    {
+      "page": "pages/card/pages/launch/launch",
+      "title": "pages/card/pages/launch/launch"
+    },
+    {
+      "page": "pages/card/pages/main/main",
+      "title": "pages/card/pages/main/main"
+    },
+    {
+      "page": "pages/scan/scan",
+      "title": "scan"
+    },
+    {
+      "page": "pages/card/pages/line/line",
+      "title": "pages/card/pages/line/line"
+    },
+    {
+      "title": "travel",
+      "page": "pages/card/pages/travel3/travel"
+    },
+    {
+      "page": "pages/card/pages/launch/launch",
+      "pageQuery": "redirectPage=/pages/card/pages/main/main",
+      "title": "main"
+    }
+  ]
+}

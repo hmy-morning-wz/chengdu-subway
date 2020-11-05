@@ -1,0 +1,93 @@
+.top {
+  height: 510rpx;
+}
+
+.header {
+  background: #108EE9;
+  padding: 23rpx 32rpx 0 32rpx;
+  height: 230rpx;
+}
+
+.header .title {
+  color: #fff;
+  font-size: 42rpx;
+  font-weight: bold;
+}
+
+.card {
+  position: absolute;
+  width: 92%;
+  top: 140rpx;
+  left: 4%;
+}
+
+.card .card-img {
+  width: 100%;
+}
+
+.profit {
+  display: flex;
+  padding-top: 127rpx;
+  text-align: center;
+  align-items: flex-end;
+}
+
+.profit .profit-item {
+  flex: 1;
+}
+
+.profit .profit-item image {
+  width: 42rpx;
+}
+
+.profit .profit-item view {
+  font-size: 22rpx;
+  color: #666;
+  margin-top: 25rpx;
+}
+
+.agreement {
+  padding: 120rpx 40rpx 0 40rpx;
+  color: #424242;
+  position: relative;
+}
+
+.agreement .agreement-text {
+  display: inline-block;
+  width: 90%;
+  vertical-align: top;
+  margin-left: .1rem;
+}
+
+.agreement .agreement-link {
+  color: #108EE9;
+}
+
+.agreement .popup {
+	position: absolute;
+	background: #108EE9;
+  padding: 15rpx 25rpx;
+  color: #fff;
+  border-radius: 4rpx;
+  top: .3rem;
+  left: .3rem;
+}
+
+.agreement .popup:after {
+	top: 100%;
+	left: 8%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(16, 142, 233, 0);
+	border-top-color: #108EE9;
+	border-width: 12rpx;
+	margin-left: -12rpx;
+}
+
+.open-btn {
+  margin: 48rpx 32rpx 0 32rpx;
+}

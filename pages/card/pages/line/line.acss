@@ -1,0 +1,147 @@
+.menu-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 170rpx;
+  width: 168rpx;
+  background: #F8F8F8;
+}
+
+.container-line{
+  position: relative;
+  height: -webkit-fill-available;
+}
+
+.menu-item-active {
+  background-color: #fff;
+}
+
+.menu-item {
+  line-height: 78rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #505064;
+}
+
+.menu-right {
+  position: absolute;
+  left: 168rpx;
+  top: 0;
+  right: 0;
+  bottom: 170rpx;
+  background-color: #fff;
+}
+
+.menu-cell {
+  padding: 22rpx;
+  padding-left: 78rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #505064;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 20rpx;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  padding-top: 50rpx;
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.10);
+  z-index: 10;
+}
+
+.btn-platform {
+  background: #BBBBBB;
+  border-radius: 100rpx;
+  border-radius: 48rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  color: #FFFFFF;
+  text-align: center;
+  width: 630rpx;
+  height: 96rpx;
+  margin: auto;
+  line-height: 96rpx;
+}
+
+.platform-cell-active {
+  background: #73C5FF;
+  color: #fff;
+}
+
+.btn-platform-active {
+  background: #0D8EE9;
+  color: #fff;
+}
+
+.modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.mask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0.5;
+  background: #1D2C3E;
+  z-index: 10;
+}
+
+.modal-body {
+  position: relative;
+  z-index: 11;
+  background-color: rgb(255, 255, 255);
+  border-radius: 16rpx;
+  overflow: hidden;
+  text-align: center;
+}
+
+.modal-title {
+  font-family: PingFangSC-Regular;
+  font-size: 38rpx;
+  color: #505064;
+  line-height: 52rpx;
+  margin-bottom: 19rpx;
+}
+
+.modal-time,
+.modal-plat {
+  font-family: PingFangSC-Regular;
+  font-size: 30rpx;
+  color: #88929D;
+  text-align: center;
+  line-height: 52rpx;
+}
+
+.modal-content {
+  padding: 50rpx;
+  min-width: 500rpx;
+  max-width: 600rpx;
+}
+
+.modal-footer {}
+
+.cancel {
+  width: 50%;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #B3B3C8;
+  border-radius: 0px;
+}
+
+.confirm {
+  width: 50%;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #00A0E9;
+  border-radius: 0px;
+  border-left: none;
+}

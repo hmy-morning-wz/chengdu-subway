@@ -1,0 +1,35 @@
+<view class="container container-line">
+   <scroll-view class="menu-left" scroll-y>
+    <view class="menu-item text-center {{activeIndex === idx ? 'menu-item-active': ''}}" data-index="{{idx}}"
+    a:for="{{list}}"  a:for-index="idx" data-obj="{{item}}" onTap="handleMenu">
+      {{item.lineName}}
+    </view>
+   </scroll-view>
+   <scroll-view class="menu-right" scroll-y>
+      <view class="platform" a:for="{{platformList}}" data-index="{{index}}" a:for-index="index" data-obj="{{item}}">
+        <view class="platform-cell" a:if="{{activeIndex === index}}" a:for-index="idx"  a:for="{{item}}" a:for-item="o" >
+            <view class="menu-cell {{ (activePlatform === idx && activeIndex === index) ? 'platform-cell-active': ''}}"
+             data-obj="{{o}}"  data-index="{{idx}}" onTap="handleStation">{{o.stationName}}</view>
+        </view>
+      </view>
+   </scroll-view>
+   <!-- footer -->
+   <view class="footer">
+     <button class="btn-platform {{ activePlatform>=0? 'btn-platform-active': '' }}" onTap="handleLogin">确认已{{trans.recordType}}站点</button>
+   </view>
+   <view a:if="{{showModal}}" class="modal flex justify-content align-center">
+      <view class="mask"></view>
+       <view class="modal-body">
+        <view class="modal-content">
+          <view class="modal-title">补登行程</view>
+            <view class="modal-time">{{ trans.transTime }}</view>
+            <view class="modal-plat" a:if="{{trans.recordType === '进站'}}">{{ platform.stationName }}  - {{ trans.stationName }} </view>
+            <view class="modal-plat" a:else>{{ trans.stationName }} - {{ platform.stationName }}</view>
+        </view>
+        <view class="modal-footer flex">
+            <button class="cancel" onTap="handleCancel"> 取消 </button>
+            <button class="confirm" onTap="handleConfirm"> 确认补登 </button>
+        </view>
+       </view>
+   </view>
+</view>

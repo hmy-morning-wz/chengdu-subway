@@ -1,0 +1,5 @@
+  
+<view class="container">
+    <image style="width:{{bannerSize.w}};height:{{bannerSize.h}}" 
+    src="{{imgUrl}}"  mode="aspectFit" />
+</view>

@@ -1,0 +1,178 @@
+<import src="/pages/card/templates/loading/index.axml" />
+<template name="metro-item">
+  <view class="metro-item" onTap="onTravelDetail" data-obj="{{item}}">
+    <!--日期-->
+    <view class="date-warp">
+      <icon type="waiting" size="14" color="#686868"/>
+      <view class="text1 mleft20">{{item.date}}</view>
+    </view>
+    <!--进站-->
+    <view class="station-warp">
+      <view class="info infoColor1"></view>
+      <text class="text1">进站:</text>
+      <text class="text2">{{item.onStationName}}</text>
+    </view>
+    <!--出站-->
+    <view class="station-warp">
+      <view class="info infoColor2"></view>
+      <text class="text1">出站:</text>
+      <text class="text2">{{item.offStationName}}</text>
+    </view>
+    <!--状态-->
+    <view class="status-warp" style="color:{{item.statusColor || '#9b9b9b'}}">
+      <view class="text1">{{item.statusDesc}}</view>
+      <view a:if="{{item.canJump==1}}" class="text1after"></view>
+    </view>
+    <!--金额-->
+    <view class="money-warp" style="color:{{item.payModeColor  || '#454545'}}">
+                {{item.price}}
+    </view>
+  </view>
+</template>
+<template name="bus-item">
+  <view class="bus-item" onTap="onTravelDetail"  data-obj="{{item}}">
+    <!--日期-->
+    <view class="date-warp">
+      <icon type="waiting" size="14" color="#686868"/>
+      <view class="text1 mleft20">{{item.date}}</view>
+    </view>
+    <!--线路名称-->
+    <view class="station-warp linename">
+      <view class="info infoColor1"></view>   
+      <text class="text1">{{item.lineName}}</text>
+    </view>
+  
+    <!--状态-->
+    <view class="status-warp" style="color:{{item.statusColor || '#9b9b9b'}}">
+      <view class="text1">{{item.statusDesc}}</view>
+      <view a:if="{{item.canJump==1}}" class="text1after"></view>
+    </view>
+    <!--金额-->
+    <view class="money-warp" style="color:{{item.payModeColor  || '#454545'}}">
+                {{item.price}}
+    </view>
+  </view>
+</template>
+
+<block>
+  <template is="tpl-loading" a:if="{{loading}}" />
+  <view class="win" a:else>
+    <tabs tabs="{{tabs2}}"  tabsName="activeTab2" onTabClick="handleTabClick" onChange="handleTabChange" activeTab="{{activeTab2}}" showPlus="{{false}}" capsule="{{false}}" hasSubTitle="{{false}}" tabBarUnderlineWidth="20px" stickyBar="{{true}}">
+      <block a:for="{{tabs2}}">
+        <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:if="{{index === 0 }}">
+          <scroll-view scroll-y="{{true}}"  onScrollToLower="onScrollToLower" class="tab-content" style="height: {{tabContentHeight}};" >
+          <view >
+            <view class="list-header">
+              <!-- 日期部分start -->
+              <view class="month_label" onTap="chooseMonth">
+                <view class="floatLeft">
+                  <text>{{month}}</text>
+                </view>
+                <view class="floatRight">
+                  <image src="/img/calendar70.png" class="cal_img"/>
+                </view>
+                <view class="clearLine"></view>
+              </view>
+              <!-- 日期部分end -->
+            </view>
+            <list className="travel-list">              
+              <block a:if="{{metroItemNum1 != 0}}">
+              <view slot="header">
+			         	<text class="list-header2" style="color:#e5b24f"> 未完成行程 </text>
+              </view>
+                <view class="item-warp">
+                  <block a:for="{{metroList1}}">
+                    <template is="metro-item" data="{{item}}"/>
+                  </block>
+                </view>
+               
+              </block>            
+            </list>
+            <list className="travel-list">             
+              <block a:if="{{metroItemNum2 != 0}}">
+               <view slot="header">
+				        <text  class="list-header2">  已完成行程  </text>
+              </view>
+                <view class="item-warp">
+                  <block a:for="{{metroList2}}">
+                    <template is="metro-item" data="{{item}}"/>
+                  </block>                  
+                   <view class="bottom-warp">
+                     <view class="text"  a:if="{{!hasNextPage && !innerLoading}}" >
+                      <text class="line"></text>
+                      <text class="content">我是有底线的</text>
+                      <text class="line"></text>
+                     </view>
+                     <view class="text" hidden="{{!innerLoading}}" style="text-align:center;">加载中...</view>                  
+                     <view  a:if="{{hasNextPage && !innerLoading}}" onAppear="onBottomLoad" class="tab-bottom"></view>
+                   </view>
+                </view>
+                <view >
+                
+                </view>
+              </block>           
+            </list>
+            <block a:if="{{metroItemNum1 == 0 && metroItemNum2==0}}">
+                <view class="nodata" hidden="{{innerLoading}}" >
+                  <image style="width: 220px; height:61px;" mode="aspectFit" src="https://front-h5.oss-cn-hangzhou.aliyuncs.com/img/subway/img_nothing.png"/>
+                  <view>
+                    <text style="font-size: 10px;">暂无数据</text>
+                  </view>
+                </view>
+              </block>
+          </view>
+           </scroll-view>
+        </tab-content>
+        <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:elif="{{ index == 1 }}" >
+         <scroll-view scroll-y="{{true}}"  onScrollToLower="onScrollToLower" class="tab-content" style="height: {{tabContentHeight}};" >
+        <view >
+            <view class="list-header">
+              <!-- 日期部分start -->
+              <view class="month_label" onTap="chooseMonth">
+                <view class="floatLeft">
+                  <text>{{month}}</text>
+                </view>
+                <view class="floatRight">
+                  <image src="/img/calendar70.png" class="cal_img"/>
+                </view>
+                <view class="clearLine"></view>
+              </view>
+              <!-- 日期部分end -->
+            </view>
+            <list className="travel-list" >                          
+              <block a:if="{{itemNum != 0}}">
+               <view slot="header">
+				        <text  class="list-header2">  已完成行程  </text>
+              </view>
+                <view class="item-warp">
+                  <block a:for="{{list}}">
+                    <template is="bus-item" data="{{item}}"/>
+                  </block>
+                  <view class="bottom-warp">
+                    <view class="text"  a:if="{{!hasNextPage && !innerLoading}}"> 
+                       <text class="line"></text>
+                      <text class="content">我是有底线的</text>
+                      <text class="line"></text></view>
+                     <view class="text" hidden="{{!innerLoading}}" style="text-align:center;">加载中...</view>                  
+                     <view a:if="{{hasNextPage && !innerLoading}}" onAppear="onBottomLoad" class="tab-bottom"></view>
+                  </view>
+                </view>
+                <view >             
+                </view>
+              </block>
+              <block a:else>
+                <view class="nodata" hidden="{{innerLoading}}" >
+                  <image style="width: 220px; height:61px;" mode="aspectFit" src="https://front-h5.oss-cn-hangzhou.aliyuncs.com/img/subway/img_nothing.png"/>
+                  <view>
+                    <text style="font-size: 10px;">暂无数据</text>
+                  </view>
+                </view>
+              </block>
+            </list>            
+          </view>
+          </scroll-view >
+        </tab-content>
+      </block>
+    </tabs>
+  </view>
+</block>

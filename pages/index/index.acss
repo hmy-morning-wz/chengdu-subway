@@ -1,0 +1,116 @@
+.cardinfo {
+  padding-top: 20rpx;
+  background-color: #2671FF;
+}
+.entry-box{
+  background-color: #2671FF;
+}
+.am-grid-4 {
+  padding-top: 0;
+}
+.am-grid{
+  background: none;
+}
+.am-grid-text{
+  color: #fff;
+}
+.am-grid-4 .am-grid-icon-container{
+  margin-top: 0;
+}
+.am-grid-4 .am-grid-item{
+  padding-top: 60px;
+}
+.menu {
+  background: #2671FF;
+  box-shadow: 0 -12px 16px 0 rgba(0, 145, 222, 0.08);
+}
+
+.index-wrapper {
+  display: block;
+  padding-bottom: 100rpx;
+}
+
+.advertiment {
+  margin-top: 22rpx;
+}
+
+.advertiment image {
+  display: block;
+  margin: auto;
+  border-radius: 14rpx;
+}
+
+
+
+.poster {
+  width: 64rpx;
+  height: 64rpx;
+  margin-right: 20rpx;
+}
+
+.swiper-item .icon {
+  width: 68rpx;
+}
+
+.swiper-item .text {
+  font-size: 12px;
+  color: #5C5C5C;
+  width: 75%;
+}
+
+.swiper-item {
+  position: relative;
+  height: 102rpx;
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+}
+.welfare{
+  padding-bottom: 20rpx;
+}
+.lifestyle{
+  padding-bottom: 40rpx;
+}
+.swiper-welfare {
+  height: 210rpx;
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+}
+
+.swiper-welfare .welfare-image {
+  width: 686rpx;
+  height: 210rpx;
+  border-radius: 8rpx;
+}
+
+.lifestyle-container{
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+}
+
+.lifestyle-left{
+  width: 258rpx;
+  padding-right: 10rpx;
+  padding-bottom: 10rpx;
+  height: 334rpx;
+  border-radius: 8rpx;
+}
+
+.lifestyle-left image{
+  width: 258rpx;
+  height: 334rpx;
+  border-radius: 8rpx;
+}
+
+.lifestyle-right{
+  width: 406rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  padding-bottom: 10rpx;
+  height: 334rpx;
+}
+
+.lifestyle-right-item image{
+  width: 406rpx;
+  height: 156rpx;
+  border-radius: 8rpx;
+}

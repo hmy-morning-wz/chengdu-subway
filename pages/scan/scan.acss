@@ -1,0 +1,24 @@
+page {
+  background: #f7f7f7;
+}
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+
+
+.container button {
+  width: 90%;
+}
+.container .cell {
+  width: 90%;
+  word-break: break-all;
+  word-wrap: break-word;
+  margin-top:32rpx; 
+  background: white; 
+}

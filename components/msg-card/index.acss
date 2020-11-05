@@ -1,0 +1,19 @@
+.msg-card {
+  padding: 20rpx;
+  margin: 0 20rpx;
+  border-bottom: 2rpx solid #ccc;
+}
+
+.msg-card .title {
+  font-size: 32rpx;
+  line-height: 50rpx;
+  overflow: auto;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.msg-card .date {
+  font-size: 26rpx;
+  line-height: 40rpx;
+  color: #999999;
+}

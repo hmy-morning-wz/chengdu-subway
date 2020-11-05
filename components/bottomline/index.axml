@@ -1,0 +1,5 @@
+<view class="linebox">
+   <view class="lineleft"></view>
+   <view class="linecenter">我是有底线的</view>
+   <view class="lineright"></view>
+</view>

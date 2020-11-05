@@ -1,0 +1,186 @@
+
+@import "/pages/card/aliParse/aliParse.acss";
+
+.title {
+    font-size: .32rem;
+    font-weight: bold;
+    text-align: center;
+    font-family: "仿宋";
+}
+
+.content {
+    font-family: "仿宋";
+    line-height: 200%;
+    font-size: .28rem;
+    text-indent: 2em;
+}
+  
+
+.footer {
+  font-family: PingFangSC-Regular;
+  font-size: .26rem;
+  color: #D0D0D0;
+  letter-spacing: 0;
+}
+
+
+.cardBg{
+  background-size: 100% 100%;
+  width: 100%;
+  height: 450rpx;
+}
+
+.card{
+  width: 90%;
+  height: 350rpx;
+  margin-top: -260rpx;
+  margin-left: 5%;
+  margin-right: 5%;
+  text-align: center;
+  background-size: 100% 100%;
+  margin-bottom: 11rpx;
+  box-shadow: 0px 3rpx 6rpx -2rpx rgba(0,0,0,0.2);
+  border-radius: 6rpx;
+}
+
+.white{
+  background: #FFF;
+}
+.tips{
+  font-family: PingFangSC-Regular;
+  font-size: 26px;
+  color: #A1A1A1;
+  text-align: center;
+  padding: 10px 0px 40px 0px;
+}
+.memo{
+  opacity: 0.8;
+  font-family: PingFangSC-Regular;
+  font-size: .26rem;
+  color: #BEBEBE;
+}
+.button{
+  background: #108EE9;
+  border-radius: 10px;
+  font-family: PingFangSC-Regular;
+  font-size: .32rem;
+  color: #FFFFFF; 
+  text-align: center;
+  margin: auto;
+  border: 1px solid #108ee9;
+}
+.buttonView{
+  text-align: center;
+  width: 100%;
+  margin: auto;
+}
+.protocolsView{
+  text-align: left;
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 20px;
+}
+.protocols{
+  font-family: PingFangSC-Regular;
+  font-size: .26rem;
+  color: #909090;
+}
+.protocols_a{
+  font-family: PingFangSC-Regular;
+  font-size: .26rem;
+  color: #108EE9;
+  line-height: 33px;
+}
+.acctsView{
+  font-size: .3rem;
+  color: #B3B3B3;
+  letter-spacing: 0;
+  text-align: center;
+}
+.accts_name{
+  font-family: PingFangSC-Medium;
+  font-size: .3rem;
+  color: #232323;
+  letter-spacing: 0;
+  padding: 0 .1rem;
+}
+.accts_memo{
+  font-family: PingFangSC-Regular;
+  font-size: .26rem;
+  color: #A3A8AE;
+}
+
+
+.agreementDiv {
+  width: 100%;
+  height: 6rem;
+      overflow-x: hidden;
+    overflow-y: scroll;
+  text-align: center;
+}
+
+.agreementFrame {
+  width: 100%;
+  height: 6rem;
+  border: none;
+  /* // border: 1px solid #A3A8AE ; */
+  margin: auto;
+}
+
+hr{
+   margin: 20px 0px;
+}
+
+.am-modal-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+  
+.am-modal-wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    z-index: 999;
+    outline: 0;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+  
+.am-modal-content {
+    border-radius: 0.14rem;
+    height: auto;
+    padding-top: 0.3rem;
+    position: relative;
+    background-color: #fff;
+    border: 0;
+    background-clip: padding-box;
+    text-align: center;
+    overflow: hidden;
+}
+
+.am-modal-body {
+    padding: 0 0.3rem 0.3rem;
+    font-size: 0.3rem;
+    color: #888;
+    height: 100%;
+    line-height: 1.5;
+    overflow: auto;
+  }
+  
+  .banner {
+    text-align: center;
+    position: relative;
+    bottom: -20px;
+  }

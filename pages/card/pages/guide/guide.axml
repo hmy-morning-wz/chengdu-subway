@@ -1,0 +1,87 @@
+<import src="/pages/card/templates/loading/index.axml" />
+<!-- <import src="/app.acss" /> -->
+<import src="/pages/card/aliParse/aliParse.axml"/> 
+
+<block >
+  <template is="tpl-loading" a:if="{{loading == true}}" data="{{}}" />
+<view class="win" a:else>
+
+    <block a:if="{{isIos == true}}">
+        <view class="cardBg" style="background-image: url({{info.guideBg}};margin-bottom: 100rpx;">
+             <image src="{{info.logoUrl}}" class="card" style="margin-top:190rpx"/>
+        </view>
+    </block>
+    <block a:else>
+        <view class="cardBg">
+            <image src="{{info.guideBg}}" class="cardBg" />
+        </view>
+        <image src="{{info.logoUrl}}" class="card" />
+    </block>
+    
+    <view >
+    
+        <view >
+            <text class="memo">{{info.cardMemo}}</text>
+        </view>
+        <view class="white_space_lg"></view>
+        <view class="buttonView">
+            <button class="button" style="width: 92%;" type="primary" onTap="onConfirmOpen">立即领卡</button>
+        </view>
+            
+        <view  class="protocolsView">
+            <radio-group onChange="argeed">
+                <label class="radio">
+                    <radio value="y" />领取卡片并同意
+                    <text class="protocols">
+                        <text class="protocols_a" a:for="{{protocols}}" data-url="{{item.protocolUrl}}" onTap="onAgreement">{{item.protocolName}}</text>
+                    </text>
+                </label>
+            </radio-group>
+        </view>
+        <view class="white_space_lg"></view>
+        <view class="white_space_lg"></view>    
+        <view class="acctsView" a:for="{{info.functions}}">
+            <view>
+                <view class="em" style="margin-top: .3rem;"></view>
+                <text class="accts_name">{{item.name}}</text>
+                <view style="margin-top: .2rem;">
+                    <text class="accts_memo">{{item.memo}}</text>
+                </view>
+                <view class="white_space_lg"></view>
+                <view class="white_space_md"></view>
+            </view>
+        </view>
+        <view class="white_space_lg"></view>
+        <view class="white_space_lg"></view>
+        <view class="white_space_lg"></view>
+        <view class="white_space_md"></view>
+        <view class="banner">
+            <text class="footer">{{info.copyRight}}</text>
+        </view>
+    </view>
+</view>
+
+
+<view hidden="{{!agreementVisiable}}">
+    <view class="am-modal-mask"></view>
+    <view class="am-modal-wrap">
+        <view style="position: relative;width: 90%; height: auto;">
+             <view class="am-modal-content">
+                 <view class="am-modal-body">
+                     <view class="agreementDiv">
+                         <view class="agreementFrame">
+                             <template is="aliParse" data="{{aliParseData:htmlContent.nodes}}"/>
+                         </view>
+                      </view>
+                      <view class="white_space_lg"></view>
+                      <view class="buttonView">
+                         <button class="button" type="primary" onTap="hideAgreement">确定</button>
+                      </view> 
+                 </view>
+             </view>
+        
+        </view>
+    </view>
+</view>
+</block>
+

@@ -1,0 +1,35 @@
+.result image{
+  width: 160rpx;
+  height: 160rpx;
+  margin-bottom: 60rpx;
+}
+.result{
+  height: 800rpx;
+}
+.am-page-result-btns {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-content: center;
+  padding-bottom: 60rpx;
+}
+.am-page-result-btns > view {
+  color: #fff;
+  font-size: 40rpx;
+  margin-top: 52rpx;
+  text-align: center;
+  width: 630rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  background: #0D8EE9;
+  border-radius: 100rpx;
+  margin: auto;
+}
+
+.error-btn {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+}

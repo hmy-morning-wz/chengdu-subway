@@ -1,0 +1,191 @@
+<view class="container">
+  <view hidden="{{isLoading}}">
+    <!-- couples -->
+    <view class="trans-container" a:if="{{list.length > 1}}">
+      <scroll-view trap-scroll 
+      class="trans-list" scroll-into-view="item{{activeTab}}" onScrollToUpper="handleUper" onScrollToLower="handleLower"
+       onScroll="handleSwiper" scroll-y  style="margin-bottom:2.5rem;height:{{h}}px">
+        <block a:for="{{list}}"  a:for-index="idx">
+          <view  data-obj="{{item}}" id="item{{idx}}" onTap="handleCouplesItem"
+          data-index="{{idx}}" class="{{ idx === activeTab ? 'trans-item-active': ''}} trans-items">
+            <view class="trans-item">
+              <view class="trans-header">
+                <text class="trans-name">{{ item.vehicleName }}</text>
+                <text class="trans-ticket">{{ item.ticketType }}</text>
+                <image class="bg-header" src="{{list[idx].vehicleType === 'METRO' ? bg.subway: bg.bus }}" />
+                <text class="trans-deadline" a:if="{{!item.showDeadInfo}}" >登记截止时间：{{item.deadLine}}</text>
+              </view>
+              <view class="trans-footer" a:if="{{item.recordType === '进站' }}">
+                <view class="trans-cell flex">
+                  <view class="trans-cell-left flex flex-column justify-content">
+                    <image class="zhan" src="../../../../images/icon/jinzhan.png" />
+                    <text>进站</text>
+                  </view>
+                  <view class="trans-cell-right trans-right-tag">
+                    <view class="lack-info" onTap="handleLogin">
+                      <text>缺进站信息</text>
+                    </view>
+                  </view>
+                </view>
+                <view class="trans-icon"></view>
+                <view class="trans-icon icon-center"></view>
+                <view class="trans-icon icon-end"></view>
+                <view class="trans-cell flex ">
+                  <view class="trans-cell-left flex flex-column justify-content">
+                    <image class="zhan" src="../../../../images/icon/chuzhan.png" />
+                    <text>出站</text>
+                  </view>
+                  <view class="trans-cell-right">
+                    <view class="station-name">{{item.stationName}}</view>
+                    <view class="station-time">{{item.transTime}}</view>
+                  </view>
+                </view>
+              </view>
+              <view class="trans-footer" a:else>
+                <view class="trans-cell flex">
+                  <view class="trans-cell-left flex flex-column justify-content">
+                    <image class="zhan" src="../../../../images/icon/jinzhan.png" />
+                    <text>进站</text>
+                  </view>
+                  <view class="trans-cell-right trans-right-tag">
+                    <view class="station-name">{{item.stationName}}</view>
+                    <view class="station-time">{{item.transTime}}</view>
+                  </view>
+                </view>
+                <view class="trans-cell flex">
+                  <view class="trans-cell-left flex flex-column justify-content">
+                    <image class="zhan" src="../../../../images/icon/chuzhan.png" />
+                    <text>出站</text>
+                  </view>
+                  <view class="trans-cell-right">
+                    <view class="lack-info" onTap="handleLogin">
+                      <view>缺出站信息</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+      <!-- <view class="info-opacty"></view> -->
+      <!-- 登记按钮 -->
+      <view class="trans-button couples">
+        <view class="info-container" a:if="{{item.recordType === '进站'}}">
+          <image class="info-icon" src="../../../../images/icon/info.png" /> <text>{{config.metroSingleEntryTip}} </text>
+        
+        </view>
+        <view class="info-container" a:else>
+          <image class="info-icon" src="../../../../images/icon/info.png" /> <text>{{config.metroSingleExitTip}} </text>
+        
+        </view>
+        <button class="btn-login" onTap="handleLogin">{{ loginName }}</button>
+      </view>
+    </view>
+    <!-- single -->
+    <view class="trans-container" a:elif="{{list.length === 1}}">
+      <view class="trans-items" style="opacity:unset;">
+        <view data-obj="{{list[0]}}" data-index="{{idx}}" 
+      class="trans-item" >
+          <view class="trans-header">
+            <text class="trans-name">{{ list[0].vehicleName }}</text>
+            <text class="trans-ticket">{{ list[0].ticketType }}</text>
+            <image class="bg-header" src="{{list[0].vehicleType === 'METRO' ? bg.subway: bg.bus }}" />
+          </view>
+          <view class="trans-footer" a:if="{{list[0].recordType === '进站'}}">
+            <view class="trans-cell flex">
+              <view class="trans-cell-left flex flex-column justify-content">
+                <image class="zhan" src="../../../../images/icon/jinzhan.png" />
+                <text>进站</text>
+              </view>
+              <view class="trans-cell-right trans-right-tag">
+                <view class="lack-info" onTap="handleLogin">
+                  <text>缺进站信息</text>
+                </view>
+              </view>
+            </view>
+            <view class="trans-icon"></view>
+            <view class="trans-icon icon-center"></view>
+            <view class="trans-icon icon-end"></view>
+            <view class="trans-cell flex ">
+              <view class="trans-cell-left flex flex-column justify-content">
+                <image class="zhan" src="../../../../images/icon/chuzhan.png" />
+                <text>出站</text>
+              </view>
+              <view class="trans-cell-right">
+                <view class="station-name">{{list[0].stationName}}</view>
+                <view class="station-time">{{list[0].transTime}}</view>
+              </view>
+            </view>
+          </view>
+          <view class="trans-footer" a:else>
+            <view class="trans-cell flex">
+              <view class="trans-cell-left flex flex-column justify-content">
+                <image class="zhan" src="../../../../images/icon/jinzhan.png" />
+                <text>进站</text>
+              </view>
+              <view class="trans-cell-right trans-right-tag">
+                <view>
+                  <view class="station-name">{{list[0].stationName}}</view>
+                  <view>{{list[0].transTime}}</view>
+                </view>
+              </view>
+            </view>
+            <view class="trans-cell flex">
+              <view class="trans-cell-left flex flex-column justify-content">
+                <image class="zhan" src="../../../../images/icon/chuzhan.png" />
+                <text>出站</text>
+              </view>
+              <view class="trans-cell-right">
+                <view class="lack-info" onTap="handleLogin">
+                  <view>缺出站信息</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="info-container" a:if="{{list[0].recordType === '进站'}}">
+        <image class="info-icon" src="../../../../images/icon/info.png" /><text>{{config.metroSingleEntryTip}} </text>
+      
+      </view>
+      <view class="info-container" a:else>
+        <image class="info-icon" src="../../../../images/icon/info.png" /><text>{{config.metroSingleExitTip}} </text>
+      
+      
+      </view>
+      <!-- 登记按钮 -->
+      <view class="trans-button single-btn">
+        <button class="btn-login" onTap="handleLogin">登记{{ list[0].recordType }}</button>
+        <view class="trans-deadline" a:if="{{!list[0].showDeadInfo}}" >登记截止时间：{{list[0].deadLine}}</view>
+      </view>
+    </view>
+    <!-- none -->
+    <view class="trans-container" a:else>
+      <view class="trans-items">
+        <view style="opacity:1;background: #fff;" class="trans-item flex flex-column justify-content align-center">
+          <image class="bg-kong" src="../../../../images/icon/kong.png" />
+          <view class="kong-desc">当前没有异常行程</view>
+        </view>
+      </view>
+      <view class="info-container">
+        <image class="info-icon" src="../../../../images/icon/info.png" /> <text>{{config.metroNoSingleTip}}  </text>
+      
+      </view>
+      <view class="footer">
+        <text onTap="handleTab">乘车记录</text>
+      </view>
+    </view>
+  </view>
+  <view a:if="{{showModal}}" class="modal flex justify-content align-center">
+    <view class="mask"></view>
+    <view class="modal-body">
+      <view class="modal-content">
+        <view class="modal-title">用户信息不一致</view>
+      </view>
+      <view class="modal-footer flex">
+        <button class="confirm" onTap="handleConfirm"> 返回首页 </button>
+      </view>
+    </view>
+  </view>
+</view>

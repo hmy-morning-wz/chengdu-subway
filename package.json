@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "scripts": {
+    "ainstall": "npm install --registry=https://registry.npm.taobao.org"
+  },
+  "dependencies": {
+    "@tklc/miniapp-tracker-sdk": "0.0.20",
+    "bigi": "^1.4.2",
+    "bus-tinyapp-components": "^1.2.2",
+    "dayjs": "^1.7.7",
+    "ecurve": "^1.0.6",
+    "herculex": "^0.2.12",
+    "jsbn": "^1.1.0",
+    "mini-ali-ui": "^1.1.5",
+    "mini-antui": "^0.3.12",
+    "mini-base64": "^0.1.0",
+    "moment": "^2.22.2"
+  }
+}

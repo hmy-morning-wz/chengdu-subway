@@ -1,0 +1,20 @@
+.card-header {
+  text-align: center;
+  border-bottom: 2rpx solid #ccc;
+  margin-bottom: 20rpx;
+}
+
+.card-header .card-icon {
+  margin: 20rpx 0;
+}
+
+.card-header .card-title {
+  margin: 20rpx 0;
+  color: #333;
+  font-weight: bold;
+}
+
+.card-header .card-desc {
+  margin: 20rpx 0;
+  color: #666;
+}

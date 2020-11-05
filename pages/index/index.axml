@@ -1,0 +1,70 @@
+  
+<view class="index-wrapper">
+  <!-- 需要配置config的cardType 且于appid一致 真机可见 -->
+  <view class="cardinfo" id="cardinfo">
+    <card-activate unified="{{true}}" cardInfo="{{$global.cardInfo}}" appId="{{alipayAppId}}"/>
+  </view>
+  <!-- 菜单功能 -->
+  <view class="menu">
+     <grid class="grid" onGridItemClick="onItemClick" columnNum="{{4}}" list="{{iconList}}" />
+  </view>
+  <!-- 公告  自动切换时间间隔等由后台控制-->
+  <swiper
+  style = "height: 100rpx;"
+  indicator-dots="{{post.indicatorDots}}"
+  autoplay="{{post.isAutoPlay}}"
+  circular
+  vertical= "{{post.vertical}}"
+  interval="{{post.interval}}">
+  <block a:for="{{ post.arr }}">
+    <swiper-item>
+      <view class="swiper-item flex align-center" data-obj="{{item}}" onTap="handleClick">
+        <image class="poster" src="{{ item.poster }}" mode="aspectFill" />
+        <text class="text" >{{ item.text }}</text>
+        <image class="icon" src="{{ item.imgUrl }}" mode="aspectFit" />
+      </image>
+    </swiper-item>
+  </block>
+</swiper>
+<view class="bg-gray"></view>
+<!-- 乘车福利 -->
+<view class="welfare">
+  <view class="label paddingLeft32 lineheight90">{{ welfare.label }}</view>
+  <swiper
+    style = "height: 100rpx;"
+    indicator-dots="{{welfare.indicatorDots}}"
+    autoplay="{{welfare.isAutoPlay}}"
+    circular
+    vertical= "{{welfare.vertical}}"
+    interval="{{welfare.interval}}">
+    <block a:for="{{ welfare.arr }}">
+      <swiper-item>
+        <view class="swiper-welfare flex align-center" data-obj="{{item}}" onTap="handleClick">
+          <image class="welfare-image" src="{{ item.imgUrl }}" mode="aspectFill" />
+        </image>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="bg-gray"></view>
+<!-- 额外设置 -->
+<view class="lifestyle">
+  <view class="label paddingLeft32 lineheight90">{{ lifestyle.label }}</view>
+  <view class="lifestyle-container flex">
+    <view class="lifestyle-left" data-obj="{{lifestyle.arr[0]}}" onTap="handleClick">
+      <image id="tianjia" class="lifestyle-image" src="{{ lifestyle.arr[0].imgUrl }}" mode="aspectFill" />
+    </view>
+    <view class="lifestyle-right">
+      <view class="lifestyle-right-item" style="margin-bottom: 20rpx;" data-obj="{{lifestyle.arr[1]}}" onTap="handleClick">
+        <image id="yijian" class="lifestyle-image" src="{{ lifestyle.arr[1].imgUrl }}" mode="aspectFill" />
+      </view>
+      <view class="lifestyle-right-item" data-obj="{{lifestyle.arr[2]}}" onTap="handleClick">
+        <image id="shoucang" class="lifestyle-image" src="{{ lifestyle.arr[2].imgUrl }}" mode="aspectFill" />
+      </view>
+    </view>
+  </view>
+  </view>
+  <!-- 底部banner -->
+  <!-- 需要配置config的cardType 且于appid一致 真机可见 真机才可见 -->
+  <tab a:if="{{$global.cardType}}" cardType="{{$global.cardType}}" activeTab="HOME" cardInfo="{{$global.cardInfo}}" />
+</view>

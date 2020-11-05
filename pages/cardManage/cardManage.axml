@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="card">
+    <image src="{{$global.cardInfo.styleConfig.imageUrl}}" class="card-img" mode="widthFix" />
+  </view>
+  <list class="list">
+    <list-item>卡号                            
+      <view slot="extra">{{$global.cardInfo.cardModels[0].cardNo}}
+      </view>
+    </list-item>
+    <list-item arrow onClick="btnRecord">乘车记录
+    </list-item>
+    <list-item arrow onClick="btnRoute">公交路线
+    </list-item>
+    <list-item arrow onClick="btnUseHelp">使用帮助
+    </list-item>
+    <list-item arrow onClick="btnCloseServer" last>关闭服务              
+    </list-item>
+  </list>
+  <tab a:if="{{$global.cardType}}" cardType="{{$global.cardType}}" activeTab="CARD" cardInfo="{{$global.cardInfo}}" />
+</view>

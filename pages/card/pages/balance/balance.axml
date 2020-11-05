@@ -1,0 +1,92 @@
+<import src="/pages/card/templates/loading/index.axml" />
+
+<template name="card-credit">
+	<view class="card">
+		<view class="card-header">
+			<view class="card-title-wrap">
+				<view class="blank-blue"></view>
+				<view>
+					<text class="card-title">{{title}}</text>
+				</view>
+			</view>
+			<view class="card-balance-wrap">
+				<view>
+					<text class="card-balance-tip">无须充值</text>
+				</view>
+				<view>
+					<text class="card-balance">实时扣款</text>
+				</view>
+			</view>
+		</view>
+		<view class="card-memo">
+			{{memo}}
+		</view>
+	</view>
+</template>
+
+<template name="card-recharge">
+	<view class="card">
+		<view class="card-header">
+			<view class="card-title-wrap">
+				<view class="blank-blue"></view>
+				<view>
+					<text class="card-title">{{title}}</text>
+				</view>
+			</view>
+			<view class="card-balance-wrap">
+				<view>
+					<text class="card-balance-tip">当前余额</text>
+				</view>
+				<view>
+					<text class="card-balance">{{balanceTitle}}</text>
+				</view>
+			</view>
+		</view>
+		<view class="card-memo">
+			{{memo}}
+		</view>
+	</view>
+</template>
+
+<template name="card-month">
+	<view class="card">
+		<view class="card-header">
+			<view class="card-title-wrap">
+				<view class="blank-blue"></view>
+				<view>
+					<text class="card-title">{{title}}</text>
+				</view>
+			</view>
+			<view class="card-balance-wrap">
+				<view>
+					<text class="card-balance-tip">当前余额</text>
+				</view>
+				<view>
+					<text class="card-balance">{{balanceTitle}}</text>
+				</view>
+			</view>
+		</view>
+		<view class="card-memo">
+			{{memo}}
+		</view>
+	</view>
+</template>
+
+<block>
+	<template is="tpl-loading" a:if="{{loading}}" data="{{}}" />
+	<view class="wrap" a:else >
+		<view class="account-list">
+			<view>
+				<template is="card-recharge" data="{{...accounts[0]}}" />
+			</view>
+		</view>
+		<view style="position: absolute; left: 7%; width: 93%; top: 190px;">
+			<view style="position: relative; left: -4%; width: 100%;">
+				<button class="btn-block" disabled="{{!cardActive}}" type="primary" onTap="onTapRecharge">立即充值</button>
+			</view>
+		</view>		
+		<view class="footer">
+  			<text onTap="onTapRechargeLog">充值记录</text>
+  		<view>
+	</view>
+</block>

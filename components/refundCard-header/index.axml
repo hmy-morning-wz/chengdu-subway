@@ -1,0 +1,7 @@
+<view class="card-header">
+  <icon class="card-icon" type="{{submitInfo.type}}" size="60" color="#118eea" />
+  <view class="card-title">    {{submitInfo.title}}  
+  </view>
+  <view class="card-desc">    {{submitInfo.desc}}    
+  </view>
+</view>

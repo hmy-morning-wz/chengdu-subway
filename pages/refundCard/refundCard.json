@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "退卡详情",
+  "usingComponents": {
+    "message": "mini-antui/es/message/index"
+  }
+}

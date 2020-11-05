@@ -1,0 +1,11 @@
+{
+    "defaultTitle": "开通线路",
+    "usingComponents": {
+        "search-bar": "mini-antui/es/search-bar/index",
+        "list": "mini-antui/es/list/index",
+        "list-item": "mini-antui/es/list/list-item/index",
+          "tabs": "mini-ali-ui/es/tabs/index",
+    "tab-content": "mini-ali-ui/es/tabs/tab-content/index"
+    }
+    
+}

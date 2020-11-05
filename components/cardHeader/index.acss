@@ -1,0 +1,15 @@
+.card-header {
+  padding: 20rpx;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-header .card-header-title {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.card-header .card-header-subtitle {
+  color: #999;
+}

@@ -1,0 +1,959 @@
+
+<!--基础元素-->
+<template name="aliParseVideo">
+  <!--增加video标签支持，并循环添加-->
+  <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+    <video class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}-video" src="{{item.attr.src}}"></video>
+  </view>
+</template>
+
+<template name="aliParseImg">
+  <image class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-from="{{item.from}}" data-src="{{item.attr.src}}" data-idx="{{item.imgIndex}}" src="{{item.attr.src}}" mode="aspectFit" bindload="aliParseImgLoad" bindtap="aliParseImgTap" mode="widthFix" style="width:{{item.width}}px;"
+  />
+</template>
+
+<template name="AliEmojiView">
+  <view class="AliEmojiView aliParse-inline" style="{{item.styleStr}}">
+    <block a:for="{{item.textArray}}" a:key="">
+      <block class="{{item.text == '\\n' ? 'aliParse-hide':''}}" a:if="{{item.node == 'text'}}">{{item.text}}</block>
+      <block a:elif="{{item.node == 'element'}}">
+        <image class="wxEmoji" src="{{item.baseSrc}}{{item.text}}" />
+      </block>
+    </block>
+  </view>
+</template>
+
+<template name="aliParseBr">
+  <text>\n</text>
+</template>
+<!--入口模版-->
+
+<template name="aliParse">
+  <view>
+  <block a:for="{{aliParseData}}" a:key="">
+    <template is="aliParse0" data="{{item}}" />
+  </block>
+  </view>
+</template>
+
+
+<!--循环模版-->
+<template name="aliParse0">
+  <!--<template is="aliParse1" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse1" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? '' :item.classStr}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse1" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse1" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+    <block a:elif="{{item.tag == 'table'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse1" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse1" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse1" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+
+
+
+<!--循环模版-->
+<template name="aliParse1">
+  <!--<template is="aliParse2" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse2" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse2" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse2" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse2" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse2" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+
+
+<!--循环模版-->
+<template name="aliParse2">
+  <!--<template is="aliParse3" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse3" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse3" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse3" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse3" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse3" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+
+<!--循环模版-->
+<template name="aliParse3">
+  <!--<template is="aliParse4" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse4" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse4" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse4" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse4" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse4" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+
+<!--循环模版-->
+<template name="aliParse4">
+  <!--<template is="aliParse5" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse5" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse5" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse5" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse5" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse5" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+
+<!--循环模版-->
+<template name="aliParse5">
+  <!--<template is="aliParse6" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse6" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse6" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse6" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse6" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse6" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+
+<!--循环模版-->
+<template name="aliParse6">
+  <!--<template is="aliParse7" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse7" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse7" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse7" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse7" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse7" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+<!--循环模版-->
+<template name="aliParse7">
+  <!--<template is="aliParse8" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse8" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse8" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse8" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse8" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse8" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+
+<!--循环模版-->
+<template name="aliParse8">
+  <!--<template is="aliParse9" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse9" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse9" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse9" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse9" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse9" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+
+<!--循环模版-->
+<template name="aliParse9">
+  <!--<template is="aliParse10" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse10" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse10" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse10" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse10" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse10" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+
+<!--循环模版-->
+<template name="aliParse10">
+  <!--<template is="aliParse11" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse11" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse11" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse11" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse11" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse11" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>
+
+<!--循环模版-->
+<template name="aliParse11">
+  <!--<template is="aliParse12" data="{{item}}" />-->
+  <!--判断是否是标签节点-->
+  <block a:if="{{item.node == 'element'}}">
+    <block a:if="{{item.tag == 'button'}}">
+      <button type="default" size="mini">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse12" data="{{item}}" />
+        </block>
+      </button>
+    </block>
+    <!--li类型-->
+    <block a:elif="{{item.tag == 'li'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li" style="{{item.styleStr}}">
+        <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-inner">
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-circle"></view>
+          </view>
+          <view class="{{item.classStr ? item.classStr :  ''}} aliParse-li-text">
+            <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+              <template is="aliParse12" data="{{item}}" />
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--video类型-->
+    <block a:elif="{{item.tag == 'video'}}">
+      <template is="aliParseVideo" data="{{item}}" />
+    </block>
+
+    <!--img类型-->
+    <block a:elif="{{item.tag == 'img'}}">
+      <template is="aliParseImg" data="{{item}}" />
+    </block>
+
+    <!--a类型-->
+    <block a:elif="{{item.tag == 'a'}}">
+      <view bindtap="aliParseTagATap" class="aliParse-inline {{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" data-src="{{item.attr.href}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse12" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <block a:elif="{{item.tag == 'br'}}">
+      <template is="aliParseBr"></template>
+    </block>
+    <!--其他块级标签-->
+    <block a:elif="{{item.tagType == 'block'}}">
+      <view class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}}" style="{{item.styleStr}}">
+        <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+          <template is="aliParse12" data="{{item}}" />
+        </block>
+      </view>
+    </block>
+
+    <!--内联标签-->
+    <view a:else class="{{item.classStr ? item.classStr :  ''}} {{item.tag ? 'aliParse-'+item.tag :  ''}} {{item.tagType  ? 'aliParse-'+item.tagType :  ''}}" style="{{item.styleStr}}">
+      <block a:for="{{item.nodes}}" a:for-item="item" a:key="">
+        <template is="aliParse12" data="{{item}}" />
+      </block>
+    </view>
+
+  </block>
+
+  <!--判断是否是文本节点-->
+  <block a:elif="{{item.node == 'text'}}">
+    <!--如果是，直接进行-->
+    <template is="AliEmojiView" data="{{item}}" />
+  </block>
+
+</template>

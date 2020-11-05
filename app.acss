@@ -1,0 +1,74 @@
+*{
+  font-family: PingFangSC-Medium;
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+}
+
+page {
+  font-size: 30rpx;
+}
+
+.bg {
+  height: 20rpx;
+}
+
+.bg-gray {
+  background: #f0f0f0;
+  height: 20rpx;
+}
+
+/* flex */
+.flex {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flex-column {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-content {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+.text-center{
+  text-align: center;
+}
+
+.label{
+  font-size: 18px;
+  color: #333333;
+}
+
+.lineheight80{
+  line-height: 80rpx;
+}
+
+.lineheight90{
+  line-height: 90rpx;
+}
+
+.lineheight100{
+  line-height: 100rpx;
+}
+
+.paddingLeft32{
+  padding-left:32rpx;
+}

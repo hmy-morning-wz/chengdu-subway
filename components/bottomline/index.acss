@@ -1,0 +1,22 @@
+.linebox {
+  width: 100%;
+  height: 50rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.lineleft {
+  width: 200rpx;
+  border-bottom: 1px solid #a9a9a9;
+}
+
+.linecenter {
+  line-height: 100rpx;
+  color: #999;
+  padding: 0 5rpx 0 5rpx;
+}
+
+.lineright {
+  width: 200rpx;
+  border-bottom: 1px solid #a9a9a9;
+}

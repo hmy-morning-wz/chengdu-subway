@@ -1,0 +1,14 @@
+<view>
+    <view class="result flex justify-content align-center flex-column" a:if="{{success}}">
+      <image src="../../../../images/icon/success.png" />
+      <view >补登成功</view>
+    </view>
+    <view class="result flex justify-content align-center flex-column"  a:else>
+     <image src="../../../../images/icon/fail.png" />
+      <view a:if="{{msg==''}}">补登失败</view>
+       <view>{{msg}}</view>
+      </view>
+    <view class="am-page-result-btns error-btn">
+        <view onTap="backHome">完成</view>
+    </view>
+</view>

@@ -1,0 +1,195 @@
+
+.aliParse{
+    margin: 0 5px;
+    font-family: Helvetica,sans-serif;
+    font-size: 28rpx;
+    color: #666;
+    line-height: 1.8;
+}
+/* view{
+    word-break:break-all; overflow:auto;
+} */
+.aliParse-inline{
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+/*//标题 */
+.aliParse-div{margin: 0;padding: 0;}
+.aliParse-h1{ font-size:2em; margin: .67em 0 }
+.aliParse-h2{ font-size:1.5em; margin: .75em 0 }
+.aliParse-h3{ font-size:1.17em; margin: .83em 0 }
+.aliParse-h4{ margin: 1.12em 0}
+.aliParse-h5 { font-size:.83em; margin: 1.5em 0 }
+.aliParse-h6{ font-size:.75em; margin: 1.67em 0 }
+
+.aliParse-h1 {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: .9em;
+}
+.aliParse-h2 {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: .34em;
+}
+.aliParse-h3 {
+  font-weight: 400;
+  font-size: 15px;
+  margin-bottom: .34em;
+}
+.aliParse-h4 {
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: .24em;
+}
+.aliParse-h5 {
+  font-weight: 400;
+  font-size: 13px;
+  margin-bottom: .14em;
+}
+.aliParse-h6 {
+  font-weight: 400;
+  font-size: 12px;
+  margin-bottom: .04em;
+}
+
+.aliParse-h1, .aliParse-h2, .aliParse-h3, .aliParse-h4, .aliParse-h5, .aliParse-h6, .aliParse-b, .aliParse-strong  { font-weight: bolder }
+
+.aliParse-i,.aliParse-cite,.aliParse-em,.aliParse-var,.aliParse-address{font-style:italic}
+.aliParse-pre,.aliParse-tt,.aliParse-code,.aliParse-kbd,.aliParse-samp{font-family:monospace}
+.aliParse-pre{white-space:pre}
+.aliParse-big{font-size:1.17em}
+.aliParse-small,.aliParse-sub,.aliParse-sup{font-size:.83em}
+.aliParse-sub{vertical-align:sub}
+.aliParse-sup{vertical-align:super}
+.aliParse-s,.aliParse-strike,.aliParse-del{text-decoration:line-through}
+/*aliParse-自定义个性化的css样式*/
+/*增加video的css样式*/
+.aliParse-strong,.aliParse-s{display: inline}
+.aliParse-a{
+    color: deepskyblue;
+    word-break:break-all;
+    overflow:auto;
+}
+
+.aliParse-video{
+    text-align: center;
+    margin: 10px 0;
+}
+
+.aliParse-video-video{
+    width:100%;
+}
+
+.aliParse-img{
+    /*background-color: #efefef;*/
+    overflow: hidden;
+}
+
+.aliParse-blockquote {
+    margin: 0;
+    padding:10px 0 10px 5px;
+    font-family:Courier, Calibri,"宋体";
+    background:#f5f5f5;
+    border-left: 3px solid #dbdbdb;
+}
+
+.aliParse-code,.aliParse-alixxcode-style{
+    display: inline;
+    background:#f5f5f5;
+}
+.aliParse-ul{
+    margin: 20rpx 10rpx;
+}
+
+.aliParse-li,.aliParse-li-inner{
+    display: flex;
+    align-items: baseline;
+    margin: 10rpx 0;
+}
+.aliParse-li-text{
+    
+    align-items: center;
+    line-height: 20px;
+}
+
+.aliParse-li-circle{
+    display: inline-flex;
+    width: 5px;
+    height: 5px;
+    background-color: #333;
+    margin-right: 5px;
+}
+
+.aliParse-li-square{
+    display: inline-flex;
+    width: 10rpx;
+    height: 10rpx;
+    background-color: #333;
+    margin-right: 5px;
+}
+.aliParse-li-ring{
+    display: inline-flex;
+    width: 10rpx;
+    height: 10rpx;
+    border: 2rpx solid #333;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-right: 5px;
+}
+
+/*.aliParse-table{
+    width: 100%;
+    height: 400px;
+}
+.aliParse-thead,.aliParse-tfoot,.aliParse-tr{
+    display: flex;
+    flex-direction: row;
+}
+.aliParse-th,.aliParse-td{
+    display: flex;
+    width: 580px;
+    overflow: auto;
+}*/
+
+.aliParse-u {
+  text-decoration: underline;
+}
+.aliParse-hide{
+    display: none;
+}
+.AliEmojiView{
+    align-items: center;
+}
+.aliEmoji{
+    width: 16px;
+    height:16px;
+}
+.aliParse-tr{
+	display: flex;
+	border-right:1px solid #e0e0e0;
+	border-bottom:1px solid #e0e0e0;
+	border-top:1px solid #e0e0e0;
+}
+.aliParse-th,
+.aliParse-td{
+	flex:1;
+	padding:5px;
+	font-size:28rpx;
+	border-left:1px solid #e0e0e0;
+	word-break: break-all;
+}
+.aliParse-td:last{
+	border-top:1px solid #e0e0e0;
+}
+.aliParse-th{
+	background:#f0f0f0;
+	border-top:1px solid #e0e0e0;
+}
+.aliParse-del{
+    display: inline;
+}
+.aliParse-figure {
+  overflow: hidden;
+}

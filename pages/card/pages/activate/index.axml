@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="top">
+    <view class="header" animation="{{bgAnimation}}">
+      <view class="title">
+        立即领卡 刷码乘车
+      </view>
+    </view>
+    <view class="card" onTap="toggleAnime" animation="{{cardAnimation}}">
+      <image src="https://front-h5.oss-cn-hangzhou.aliyuncs.com/img/subway/card.png" class="card-img" mode="widthFix" />
+    </view>
+  </view>
+  <view class="profit">
+    <view class="profit-item">
+      <image src="../../img/icon1.png" mode="widthFix" />
+      <view>先乘后付</view>
+    </view>
+    <view class="profit-item">
+      <image src="../../img/icon2.png" mode="widthFix" />
+      <view>累计芝麻信用</view>
+    </view>
+    <view class="profit-item">
+      <image src="../../img/icon3.png" mode="widthFix" />
+      <view>获得绿色能量</view>
+    </view>
+  </view>
+  <view class="agreement">
+      <view class="popup" a:if="{{popupShow}}">请同意协议，保障用卡安全</view>
+      <radio-group class="radio-group" onChange="handleChange">
+        <label class="radio">
+          <radio value="agree" checked="{{checked}}" />
+          <view class="agreement-text">
+            我已阅读并同意
+            <text class="agreement-link">《地铁先享后付服务和芝麻服务等协议》</text>
+            <text class="agreement-link">《地铁乘车码用户服务协议》</text>
+          </view>
+        </label>
+      </radio-group>
+  </view>
+  <view class="open-btn" onTap="showDialog">
+    <button type="primary" onTap="handleTap" disabled="{{!checked}}">立即领卡</button>
+  </view>
+</view>
